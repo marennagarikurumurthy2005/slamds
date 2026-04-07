@@ -8,6 +8,8 @@ services:
     startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --threads 2 --timeout 120 --access-logfile - --error-logfile -
     healthCheckPath: /api/v1/wakeup/
     envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
       - key: DJANGO_SECRET_KEY
         generateValue: true
       - key: DJANGO_DEBUG
