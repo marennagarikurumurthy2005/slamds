@@ -5,7 +5,7 @@ Django settings for the MK Slam Collector backend.
 from datetime import timedelta
 import os
 from pathlib import Path
-from urllib.parse import quote, unquote
+from urllib.parse import quote, unquote, urlsplit
 
 from dotenv import load_dotenv
 
@@ -25,6 +25,22 @@ def env_list(name: str, default: str = "") -> list[str]:
 
 def env_star_list(name: str, default: str = "") -> list[str]:
     return env_list(name, default)
+
+
+def normalize_origin(value: str) -> str:
+    candidate = value.strip()
+    if "://" not in candidate:
+        return candidate.rstrip("/")
+
+    parts = urlsplit(candidate)
+    if parts.scheme and parts.netloc:
+        return f"{parts.scheme}://{parts.netloc}"
+
+    return candidate.rstrip("/")
+
+
+def normalize_origin_list(values: list[str]) -> list[str]:
+    return [normalize_origin(value) for value in values if normalize_origin(value)]
 
 
 def sanitize_mongo_uri(raw_uri: str) -> str:
@@ -192,13 +208,13 @@ REFRESH_COOKIE_SAMESITE = os.getenv(
     "Lax" if DEBUG else "Strict",
 )
 REFRESH_COOKIE_DOMAIN = os.getenv("JWT_REFRESH_COOKIE_DOMAIN") or None
-FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
+FRONTEND_URL = normalize_origin(os.getenv("FRONTEND_URL", "http://localhost:5173"))
 
 
-CORS_ALLOWED_ORIGINS = env_list("CORS_ALLOWED_ORIGINS", FRONTEND_URL)
+CORS_ALLOWED_ORIGINS = normalize_origin_list(env_list("CORS_ALLOWED_ORIGINS", FRONTEND_URL))
 CORS_ALLOWED_ORIGIN_REGEXES = env_star_list("CORS_ALLOWED_ORIGIN_REGEXES")
 CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS", FRONTEND_URL)
+CSRF_TRUSTED_ORIGINS = normalize_origin_list(env_list("CSRF_TRUSTED_ORIGINS", FRONTEND_URL))
 
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SECURE = env_bool("SESSION_COOKIE_SECURE", not DEBUG)
