@@ -18,6 +18,13 @@ def env_bool(name: str, default: bool = False) -> bool:
     return os.getenv(name, str(default)).strip().lower() in {"1", "true", "yes", "on"}
 
 
+def env_int(name: str, default: int) -> int:
+    try:
+        return int(os.getenv(name, str(default)).strip())
+    except (TypeError, ValueError):
+        return default
+
+
 def env_list(name: str, default: str = "") -> list[str]:
     raw_value = os.getenv(name, default)
     return [item.strip() for item in raw_value.split(",") if item.strip()]
@@ -129,6 +136,11 @@ DATABASES = {
             os.getenv("MONGO_URI", "mongodb://127.0.0.1:27017/")
         ),
         "NAME": os.getenv("MONGO_DB_NAME", "mk_slam_collector"),
+        "OPTIONS": {
+            "serverSelectionTimeoutMS": env_int("MONGO_SERVER_SELECTION_TIMEOUT_MS", 5000),
+            "connectTimeoutMS": env_int("MONGO_CONNECT_TIMEOUT_MS", 5000),
+            "socketTimeoutMS": env_int("MONGO_SOCKET_TIMEOUT_MS", 10000),
+        },
     }
 }
 

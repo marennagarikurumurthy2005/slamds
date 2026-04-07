@@ -1,6 +1,7 @@
 from django.db.models import Q
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.db.utils import DatabaseError
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
@@ -28,43 +29,56 @@ def get_regular_user_queryset():
     return User.objects.exclude(is_staff=True, is_superuser=True)
 
 
+def database_unavailable_response():
+    return Response(
+        {"detail": "Database is unavailable right now. Please try again in a moment."},
+        status=status.HTTP_503_SERVICE_UNAVAILABLE,
+    )
+
+
 class SignupView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        serializer = SignupSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-        access_token, refresh_token = issue_tokens_for_user(user)
-        response = Response(
-            {
-                "message": "Signup successful.",
-                "access_token": access_token,
-                "user": UserSerializer(user).data,
-            },
-            status=status.HTTP_201_CREATED,
-        )
-        set_refresh_cookie(response, refresh_token)
-        return response
+        try:
+            serializer = SignupSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            user = serializer.save()
+            access_token, refresh_token = issue_tokens_for_user(user)
+            response = Response(
+                {
+                    "message": "Signup successful.",
+                    "access_token": access_token,
+                    "user": UserSerializer(user).data,
+                },
+                status=status.HTTP_201_CREATED,
+            )
+            set_refresh_cookie(response, refresh_token)
+            return response
+        except DatabaseError:
+            return database_unavailable_response()
 
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        serializer = LoginSerializer(data=request.data, context={"request": request})
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data["user"]
-        access_token, refresh_token = issue_tokens_for_user(user)
-        response = Response(
-            {
-                "message": "Login successful.",
-                "access_token": access_token,
-                "user": UserSerializer(user).data,
-            }
-        )
-        set_refresh_cookie(response, refresh_token)
-        return response
+        try:
+            serializer = LoginSerializer(data=request.data, context={"request": request})
+            serializer.is_valid(raise_exception=True)
+            user = serializer.validated_data["user"]
+            access_token, refresh_token = issue_tokens_for_user(user)
+            response = Response(
+                {
+                    "message": "Login successful.",
+                    "access_token": access_token,
+                    "user": UserSerializer(user).data,
+                }
+            )
+            set_refresh_cookie(response, refresh_token)
+            return response
+        except DatabaseError:
+            return database_unavailable_response()
 
 
 class RefreshSessionView(APIView):
@@ -98,6 +112,8 @@ class RefreshSessionView(APIView):
             )
             clear_refresh_cookie(response)
             return response
+        except DatabaseError:
+            return database_unavailable_response()
 
         access_token, _ = issue_tokens_for_user(user)
         return Response(
@@ -120,7 +136,10 @@ class LogoutView(APIView):
 
 class MeView(APIView):
     def get(self, request):
-        return Response(UserSerializer(request.user).data)
+        try:
+            return Response(UserSerializer(request.user).data)
+        except DatabaseError:
+            return database_unavailable_response()
 
 
 class AdminUserListView(APIView):
