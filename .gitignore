@@ -1,0 +1,11 @@
+backend/.env
+backend/.venv/
+backend/venv/
+backend/staticfiles/
+backend/**/__pycache__/
+backend/**/*.pyc
+frontend/slamformk/.env
+frontend/slamformk/node_modules/
+frontend/slamformk/dist/
+frontend/slamformk/.vite/
+.DS_Store
