@@ -63,14 +63,14 @@ export default function MySlamsPage() {
     <AppShell
       actions={
         <Link to="/slams/new">
-          <Button>Write another slam</Button>
+          <Button className="w-full sm:w-auto">Write another slam</Button>
         </Link>
       }
       subtitle="Drafts stay editable, and submitted slams can be reopened any time for updates. Anything you delete quietly disappears from your own view."
       title="Your slam library"
     >
       <section className="grid gap-4 lg:grid-cols-[1.3fr_0.7fr]">
-        <div className="panel hero-sheen animate-rise rounded-[30px] p-5 sm:p-6">
+        <div className="panel hero-sheen animate-rise rounded-[28px] p-4 sm:rounded-[30px] sm:p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-[var(--muted)]">
@@ -80,14 +80,14 @@ export default function MySlamsPage() {
                 Switch between drafts and submitted slams, then reopen any entry whenever you want to refine it.
               </p>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="hide-scrollbar -mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
               {[
                 ['all', 'All'],
                 ['draft', 'Drafts'],
                 ['submitted', 'Submitted'],
               ].map(([value, label]) => (
                 <button
-                  className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                  className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition ${
                     activeFilter === value
                       ? 'bg-[var(--accent)] text-white shadow-[0_14px_26px_rgba(84,89,234,0.18)]'
                       : 'glass-chip text-[var(--ink)] hover:bg-white'
@@ -103,17 +103,17 @@ export default function MySlamsPage() {
           </div>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
+        <div className="grid grid-cols-3 gap-3 lg:grid-cols-1">
           {[
             ['Total', data.meta?.count ?? 0],
             ['Drafts', data.meta?.drafts ?? 0],
             ['Submitted', data.meta?.submitted ?? 0],
           ].map(([label, value]) => (
-            <div key={label} className="panel animate-rise rounded-[26px] p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--muted)]">
+            <div key={label} className="panel animate-rise rounded-[24px] p-4 sm:rounded-[26px] sm:p-5">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)] sm:text-xs sm:tracking-[0.22em]">
                 {label}
               </p>
-              <p className="mt-3 font-display text-4xl text-[var(--ink)]">{value}</p>
+              <p className="mt-3 font-display text-3xl text-[var(--ink)] sm:text-4xl">{value}</p>
             </div>
           ))}
         </div>

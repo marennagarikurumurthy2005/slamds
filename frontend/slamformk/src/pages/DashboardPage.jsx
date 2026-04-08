@@ -17,10 +17,10 @@ export default function DashboardPage() {
       }
       title={`Welcome, ${user?.name ?? user?.full_name ?? 'Writer'}`}
     >
-      <section className={`grid gap-4 ${isAdmin ? 'lg:grid-cols-[1.2fr_0.8fr]' : ''}`}>
+      <section className={`grid gap-4 ${isAdmin ? 'xl:grid-cols-[1.15fr_0.85fr]' : ''}`}>
         <div className={`grid gap-4 ${isAdmin ? 'sm:grid-cols-2' : 'md:grid-cols-2'}`}>
           <Link
-            className="panel hero-sheen animate-rise rounded-[28px] p-6 transition hover:-translate-y-0.5"
+            className="panel-strong hero-sheen animate-rise rounded-[26px] p-5 transition hover:-translate-y-0.5 sm:rounded-[28px] sm:p-6"
             to="/slams/new"
           >
             <div className="inline-flex h-12 w-12 items-center justify-center rounded-[18px] bg-[rgba(84,89,234,0.12)] text-[var(--accent)]">
@@ -37,7 +37,7 @@ export default function DashboardPage() {
           </Link>
 
           <Link
-            className="panel hero-sheen animate-rise rounded-[28px] p-6 transition hover:-translate-y-0.5"
+            className="panel hero-sheen animate-rise rounded-[26px] p-5 transition hover:-translate-y-0.5 sm:rounded-[28px] sm:p-6"
             to="/slams"
           >
             <div className="inline-flex h-12 w-12 items-center justify-center rounded-[18px] bg-[rgba(19,185,130,0.12)] text-[var(--mint)]">
@@ -55,7 +55,7 @@ export default function DashboardPage() {
         </div>
 
         {isAdmin ? (
-          <div className="panel animate-rise rounded-[28px] p-6">
+          <div className="panel animate-rise rounded-[26px] p-5 sm:rounded-[28px] sm:p-6">
             <div className="inline-flex h-12 w-12 items-center justify-center rounded-[18px] bg-[rgba(139,92,246,0.12)] text-[var(--purple)]">
               <LayoutDashboard className="h-5 w-5" />
             </div>

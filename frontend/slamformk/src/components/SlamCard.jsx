@@ -6,7 +6,7 @@ import Button from './ui/Button'
 
 function AnswerPreview({ label, value }) {
   return (
-    <div className="rounded-[22px] bg-white/80 p-4">
+    <div className="glass-chip rounded-[20px] p-4 sm:rounded-[22px]">
       <p className="text-[11px] font-semibold tracking-[0.14em] text-[var(--muted)] break-words sm:text-xs">
         {label}
       </p>
@@ -24,7 +24,7 @@ export default function SlamCard({ onDelete, slam }) {
   const betterVersion = buildBetterVersionText(slam)
 
   return (
-    <article className="panel hero-sheen animate-rise rounded-[30px] p-5 sm:p-6">
+    <article className="panel hero-sheen animate-rise rounded-[26px] p-4 sm:rounded-[30px] sm:p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <div className="glass-chip inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--muted)]">
@@ -53,10 +53,10 @@ export default function SlamCard({ onDelete, slam }) {
           ) : null}
         </div>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
           {canEdit ? (
             <Link to={`/slams/${slam.id}/edit`}>
-              <Button variant="secondary">
+              <Button className="w-full" variant="secondary">
                 <span className="inline-flex items-center gap-2">
                   <PencilLine className="h-4 w-4" />
                   {isDraft ? 'Edit slam' : 'Update slam'}
@@ -65,7 +65,7 @@ export default function SlamCard({ onDelete, slam }) {
             </Link>
           ) : null}
           {onDelete ? (
-            <Button onClick={() => onDelete(slam)} variant="danger">
+            <Button className="w-full" onClick={() => onDelete(slam)} variant="danger">
               <span className="inline-flex items-center gap-2">
                 <Trash2 className="h-4 w-4" />
                 Delete

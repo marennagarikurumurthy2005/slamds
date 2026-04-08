@@ -138,7 +138,7 @@ export default function ComposePage() {
     <AppShell
       actions={
         <Link to="/slams">
-          <Button variant="ghost">
+          <Button className="w-full sm:w-auto" variant="ghost">
             <span className="inline-flex items-center gap-2">
               <ArrowLeft className="h-4 w-4" />
               Back to My Slams
@@ -154,9 +154,9 @@ export default function ComposePage() {
           Loading your slam...
         </div>
       ) : (
-        <section className="panel hero-sheen animate-rise rounded-[30px] p-6 sm:p-7">
+        <section className="panel hero-sheen animate-rise rounded-[28px] p-4 sm:rounded-[30px] sm:p-7">
           <div className="mb-6 grid gap-3 sm:grid-cols-2">
-            <div className="glass-chip rounded-[24px] px-4 py-4">
+            <div className="glass-chip rounded-[22px] px-4 py-4 sm:rounded-[24px]">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--muted)]">
                 Editing progress
               </p>
@@ -167,7 +167,7 @@ export default function ComposePage() {
                 Complete both sections before you submit or update this slam.
               </p>
             </div>
-            <div className="glass-chip rounded-[24px] px-4 py-4">
+            <div className="glass-chip rounded-[22px] px-4 py-4 sm:rounded-[24px]">
               <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--muted)]">
                 Current mode
               </p>
@@ -186,15 +186,23 @@ export default function ComposePage() {
 
           <div className="grid gap-5">
             {sectionConfig.map(([field, label, description]) => (
-              <FormField
-                as="textarea"
-                key={field}
-                label={label}
-                onChange={(event) => updateField(field, event.target.value)}
-                placeholder={description}
-                rows={field === 'write_slam' ? 10 : 6}
-                value={form[field]}
-              />
+              <div key={field} className="soft-ring rounded-[24px] bg-white/78 p-4 sm:rounded-[28px] sm:p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--accent)]">
+                  {label}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-[var(--muted)]">{description}</p>
+                <div className="mt-4">
+                  <FormField
+                    as="textarea"
+                    className="bg-white"
+                    label="Your answer"
+                    onChange={(event) => updateField(field, event.target.value)}
+                    placeholder={description}
+                    rows={field === 'write_slam' ? 10 : 6}
+                    value={form[field]}
+                  />
+                </div>
+              </div>
             ))}
           </div>
 
@@ -204,14 +212,14 @@ export default function ComposePage() {
             </div>
           ) : null}
 
-          <div className="mt-6 flex flex-wrap justify-end gap-3">
-            <Button disabled={isSaving} onClick={handleSaveChanges} variant="secondary">
+          <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+            <Button className="w-full sm:w-auto" disabled={isSaving} onClick={handleSaveChanges} variant="secondary">
               <span className="inline-flex items-center gap-2">
                 <Save className="h-4 w-4" />
                 {isSaving ? 'Saving...' : slamId ? 'Save changes' : 'Save draft'}
               </span>
             </Button>
-            <Button disabled={isSaving} onClick={handleSubmitConfirm}>
+            <Button className="w-full sm:w-auto" disabled={isSaving} onClick={handleSubmitConfirm}>
               <span className="inline-flex items-center gap-2">
                 <Send className="h-4 w-4" />
                 {isSubmittedSlam ? 'Update slam' : 'Submit slam'}

@@ -30,11 +30,11 @@ function AdminMetricCard({ label, tone = 'accent', value }) {
   }[tone]
 
   return (
-    <article className="panel animate-rise rounded-[26px] p-5">
-      <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--muted)]">
+    <article className="panel animate-rise rounded-[24px] p-4 sm:rounded-[26px] sm:p-5">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--muted)] sm:text-xs sm:tracking-[0.22em]">
         {label}
       </p>
-      <p className={`mt-3 font-display text-4xl ${accentClass}`}>{value}</p>
+      <p className={`mt-3 font-display text-3xl sm:text-4xl ${accentClass}`}>{value}</p>
     </article>
   )
 }
@@ -43,7 +43,7 @@ function AdminSlamAnswer({ label, value, showFullContent = false }) {
   const content = value?.trim() ? value : 'No content added yet.'
 
   return (
-    <div className="glass-chip min-w-0 rounded-[22px] p-4">
+    <div className="glass-chip min-w-0 rounded-[20px] p-3.5 sm:rounded-[22px] sm:p-4">
       <p className="text-[11px] font-semibold tracking-[0.14em] text-[var(--muted)] break-words sm:text-xs">
         {label}
       </p>
@@ -63,7 +63,7 @@ function AdminSlamItem({ showFullContent = false, slam }) {
   const betterVersion = buildBetterVersionText(slam)
 
   return (
-    <article className="panel rounded-[26px] p-5">
+    <article className="panel rounded-[24px] p-4 sm:rounded-[26px] sm:p-5">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div className="min-w-0">
           <p className="text-base font-semibold leading-7 text-[var(--ink)] break-words">
@@ -105,7 +105,7 @@ function AdminSlamItem({ showFullContent = false, slam }) {
 
 function UserDetailStat({ label, value }) {
   return (
-    <div className="glass-chip rounded-[20px] px-4 py-4">
+    <div className="glass-chip rounded-[18px] px-4 py-4 sm:rounded-[20px]">
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--muted)]">
         {label}
       </p>
@@ -289,7 +289,7 @@ export default function AdminPage() {
       </section>
 
       <section className="mt-6 grid gap-4 lg:grid-cols-[1fr_1fr]">
-        <article className="panel hero-sheen animate-rise rounded-[30px] p-6">
+        <article className="panel hero-sheen animate-rise rounded-[28px] p-5 sm:rounded-[30px] sm:p-6">
           <div className="inline-flex h-12 w-12 items-center justify-center rounded-[18px] bg-[rgba(84,89,234,0.12)] text-[var(--accent)]">
             <LayoutDashboard className="h-5 w-5" />
           </div>
@@ -310,7 +310,7 @@ export default function AdminPage() {
           </div>
         </article>
 
-        <article className="panel hero-sheen animate-rise rounded-[30px] p-6">
+        <article className="panel hero-sheen animate-rise rounded-[28px] p-5 sm:rounded-[30px] sm:p-6">
           <div className="inline-flex h-12 w-12 items-center justify-center rounded-[18px] bg-[rgba(19,185,130,0.12)] text-[var(--mint)]">
             <LockKeyhole className="h-5 w-5" />
           </div>
@@ -321,7 +321,7 @@ export default function AdminPage() {
         </article>
       </section>
 
-      <section className="panel animate-rise mt-6 rounded-[30px] p-5">
+      <section className="panel animate-rise mt-6 rounded-[28px] p-4 sm:rounded-[30px] sm:p-5">
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           <FormField
             label="Search slams"
@@ -375,7 +375,7 @@ export default function AdminPage() {
         </div>
       </section>
 
-      <section className="panel animate-rise mt-6 rounded-[30px] p-5">
+      <section className="panel animate-rise mt-6 rounded-[28px] p-4 sm:rounded-[30px] sm:p-5">
         <div className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-[var(--accent)]" />
           <h2 className="text-lg font-semibold text-[var(--ink)]">All slams</h2>
@@ -405,7 +405,7 @@ export default function AdminPage() {
       </section>
 
       <section className="mt-6 grid gap-6 xl:grid-cols-[0.95fr_1.05fr]">
-        <article className="panel animate-rise rounded-[30px] p-5">
+        <article className="panel animate-rise rounded-[28px] p-4 sm:rounded-[30px] sm:p-5">
           <div className="flex items-center gap-2">
             <Users className="h-4 w-4 text-[var(--accent)]" />
             <h2 className="text-lg font-semibold text-[var(--ink)]">Users</h2>
@@ -463,7 +463,7 @@ export default function AdminPage() {
           )}
         </article>
 
-        <article className="panel animate-rise rounded-[30px] p-5">
+        <article className="panel animate-rise rounded-[28px] p-4 sm:rounded-[30px] sm:p-5">
           <div className="flex items-center gap-2">
             <Eye className="h-4 w-4 text-[var(--accent)]" />
             <h2 className="text-lg font-semibold text-[var(--ink)]">Selected user</h2>
@@ -485,10 +485,10 @@ export default function AdminPage() {
             </div>
           ) : (
             <div className="mt-4">
-              <div className="hero-sheen rounded-[28px] bg-[rgba(84,89,234,0.08)] p-5">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="min-w-0">
-                    <p className="text-2xl font-semibold text-[var(--ink)] break-words">{selectedUser.full_name}</p>
+                <div className="hero-sheen rounded-[24px] bg-[rgba(84,89,234,0.08)] p-4 sm:rounded-[28px] sm:p-5">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="min-w-0">
+                      <p className="text-2xl font-semibold text-[var(--ink)] break-words">{selectedUser.full_name}</p>
                     <p className="mt-2 text-sm text-[var(--muted)] break-words">{selectedUser.email}</p>
                     <p className="mt-1 text-sm text-[var(--muted)] break-words">{selectedUser.roll_number}</p>
                     <div className="mt-3 flex flex-wrap gap-2">
@@ -503,7 +503,7 @@ export default function AdminPage() {
                     </div>
                   </div>
 
-                  <Button className="shrink-0" onClick={() => openPasswordDialog(selectedUser)} variant="secondary">
+                  <Button className="w-full shrink-0 sm:w-auto" onClick={() => openPasswordDialog(selectedUser)} variant="secondary">
                     <span className="inline-flex items-center gap-2">
                       <KeyRound className="h-4 w-4" />
                       Change password
