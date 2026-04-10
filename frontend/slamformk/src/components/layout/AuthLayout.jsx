@@ -1,4 +1,3 @@
-import { BookHeart } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export default function AuthLayout({
@@ -14,11 +13,17 @@ export default function AuthLayout({
     <div className="flex min-h-screen items-start justify-center px-4 py-4 sm:items-center sm:px-6 sm:py-8">
       <div className="panel-strong hero-sheen animate-rise w-full max-w-2xl overflow-hidden rounded-[28px] sm:rounded-[36px]">
         <div className="relative border-b border-[rgba(73,87,129,0.1)] px-5 py-6 sm:px-8 sm:py-9">
-          <div className="glass-chip inline-flex rounded-full px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--accent)]">
-            MK Slam Collector
-          </div>
-          <div className="mt-5 glass-chip inline-flex h-14 w-14 items-center justify-center rounded-[20px] bg-[var(--accent)] text-white shadow-[var(--hero-shadow)] sm:h-16 sm:w-16 sm:rounded-[22px]">
-            <BookHeart className="h-8 w-8" />
+          <div className="flex items-center gap-3">
+            <div className="glass-chip inline-flex h-14 flex-1 items-center rounded-[20px] px-5 text-[11px] font-semibold uppercase tracking-[0.24em] text-[var(--accent)] sm:h-16 sm:rounded-[22px] sm:text-xs sm:tracking-[0.3em]">
+              MK Slam Collector
+            </div>
+            <div className="glass-chip h-14 w-14 overflow-hidden rounded-[20px] shadow-[var(--hero-shadow)] sm:h-16 sm:w-16 sm:rounded-[22px]">
+              <img
+                alt="MK"
+                className="h-full w-full object-cover"
+                src="/image.png"
+              />
+            </div>
           </div>
 
           <p className="mt-5 text-[11px] font-semibold uppercase tracking-[0.32em] text-[var(--accent)] sm:text-xs sm:tracking-[0.36em]">
